@@ -38,6 +38,19 @@ def removeChar(string, char, slot):
     else:
         sys.exit('Trying to remove char out of slot range!')
 
+#Inserts specific char into a specific slot in the passed string
+def insertChar(string, char, slot):
+    if slot == 1:
+        return string[:string.find('%')] + char + string[string.find('%'):]
+    elif slot == 2:
+        return string[:findDivider(string, 2)] + char + string[findDivider(string, 2):]
+    elif slot == 3:
+        return string[:findDivider(string, 3)] + char + string[findDivider(string, 3):]
+    elif slot == 4:
+        return string[:findDivider(string, 3) + 1] + char + string[findDivider(string, 3) + 1:]
+    else:
+        sys.exit('Trying to insert char out of slot bounds!')
+
 tracks = []
 
 #iterate through csv files
@@ -65,8 +78,7 @@ iter2 = 0
 iter3 = 0
 iter4 = 0
 
-unit = 'ba%abd%ad%s'
-print(removeChar(unit, 'a', 4))
+unit = '%%%'
 
 # with open('input.txt', 'w') as f:
 #     while True:
