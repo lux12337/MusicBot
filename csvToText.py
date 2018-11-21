@@ -125,7 +125,7 @@ with open('input.txt', 'w') as f:
                     unit = removeChar(unit, intoChar(int(tracks[5][iter4][4])), 4)
                 iter4 += 1
 
-        f.write(str(clock))
+        #f.write(str(clock))
         f.write(unit)
         f.write(' ')
         clock += 5
