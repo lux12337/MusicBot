@@ -80,51 +80,55 @@ iter4 = 0
 
 unit = '%%%'
 
-# with open('input.txt', 'w') as f:
-#     while True:
-#         if iter1 >= len(tracks[2]) and iter2 >= len(tracks[3]) and iter3 >= len(tracks[4]) and iter4 >= len(tracks[5]):
-#             break
-#         #track 1
-#         if iter1 < len(tracks[2]) and clock <= int(tracks[2][iter1][1]):
-#             if tracks[2][iter1][2].strip() == 'Note_on_c':
-#                 while iter1 < len(tracks[2]) and tracks[2][iter1][2].strip() == 'Note_on_c':
-#                     unit = intoChar(int(tracks[2][iter1][4])) + unit
-#                     iter1 += 1
-#             else:
-#                 unit = unit[:unit.find(intoChar(int(tracks[2][iter1][4])))] + unit[unit.find(intoChar(int(tracks[2][iter1][4]))):]
-#             iter1 += 1
-#         #track 2
-#         if iter2 < len(tracks[3]) and clock <= int(tracks[3][iter2][1]):
-#             if tracks[3][iter2][2].strip() == 'Note_on_c':
-#                 while iter2 < len(tracks[3]) and tracks[3][iter2][2].strip() == 'Note_on_c':
-#                     unit = unit[:unit.find('%', unit.find('%') + 1,)] + intoChar(int(tracks[3][iter2][4])) + unit[unit.find('%', unit.find('%') + 1,) + 1:]
-#                     iter2 += 1
-#             else:
-#                 unit = unit[:unit.find(intoChar(int(tracks[3][iter2][4])))] + unit[unit.find(intoChar(int(tracks[3][iter2][4]))):]
-#             iter2 += 1
-#         #track 3
-#         if iter3 < len(tracks[4]) and clock <= int(tracks[4][iter3][1]):
-#             if tracks[4][iter3][2].strip() == 'Note_on_c':
-#                 while iter3 < len(tracks[4]) and tracks[4][iter3][2].strip() == 'Note_on_c':
-#                     unit = unit[:unit.find('%', unit.find('%', unit.find('%') + 1,) + 1,)] + intoChar(int(tracks[4][iter3][4])) + unit[unit.find('%', unit.find('%', unit.find('%') + 1,) + 1,):]
-#                     iter3 += 1
-#             else:
-#                 unit = unit[:unit.find(intoChar(int(tracks[4][iter3][4])))] + unit[unit.find(intoChar(int(tracks[4][iter3][4]))):]
-#             iter3 += 1
-#         #track 4
-#         if iter4 < len(tracks[5]) and clock <= int(tracks[5][iter4][1]):
-#             if tracks[5][iter4][2].strip() == 'Note_on_c':
-#                 while iter4 < len(tracks[5]) and tracks[5][iter4][2].strip() == 'Note_on_c':
-#                     unit = unit[:unit.find('%', unit.find('%', unit.find('%', unit.find('%') + 1, ), ) + 1, )] + intoChar(int(tracks[4][iter3][4])) + unit[unit.find('%', unit.find('%', unit.find('%', unit.find('%') + 1, ), ) + 1, ):]
-#                     iter4 += 1
-#             else:
-#                 unit = unit[:unit.find(intoChar(int(tracks[5][iter4][4])))] + unit[unit.find(intoChar(int(tracks[5][iter4][4]))):]
-#             iter4 += 1
-#
-#         f.write(str(clock))
-#         f.write(unit)
-#         f.write(' ')
-#         clock += 5
+with open('input.txt', 'w') as f:
+    while True:
+        if iter1 >= len(tracks[2]) and iter2 >= len(tracks[3]) and iter3 >= len(tracks[4]) and iter4 >= len(tracks[5]):
+            break
+
+        #track 1
+        if iter1 < len(tracks[2]) and clock >= int(tracks[2][iter1][1]):
+            time = int(tracks[2][iter1][1])
+            while iter1 < len(tracks[2]) and time == int(tracks[2][iter1][1]):
+                if tracks[2][iter1][2].strip() == 'Note_on_c':
+                    unit = insertChar(unit, intoChar(int(tracks[2][iter1][4])), 1)
+                else:
+                    unit = removeChar(unit, intoChar(int(tracks[2][iter1][4])), 1)
+                iter1 += 1
+
+        #track 2
+        if iter2 < len(tracks[3]) and clock >= int(tracks[3][iter2][1]):
+            time = int(tracks[3][iter2][1])
+            while iter2 < len(tracks[3]) and time == int(tracks[3][iter2][1]):
+                if tracks[3][iter2][2].strip() == 'Note_on_c':
+                    unit = insertChar(unit, intoChar(int(tracks[3][iter2][4])), 2)
+                else:
+                    unit = removeChar(unit, intoChar(int(tracks[3][iter2][4])), 2)
+                iter2 += 1
+
+        #track 3
+        if iter3 < len(tracks[4]) and clock >= int(tracks[4][iter3][1]):
+            time = int(tracks[4][iter3][1])
+            while iter3 < len(tracks[4]) and time == int(tracks[4][iter3][1]):
+                if tracks[4][iter3][2].strip() == 'Note_on_c':
+                    unit = insertChar(unit, intoChar(int(tracks[4][iter3][4])), 3)
+                else:
+                    unit = removeChar(unit, intoChar(int(tracks[4][iter3][4])), 3)
+                iter3 += 1
+
+        #track 4
+        if iter4 < len(tracks[5]) and clock >= int(tracks[5][iter4][1]):
+            time = int(tracks[5][iter4][1])
+            while iter4 < len(tracks[5]) and time == int(tracks[5][iter4][1]):
+                if tracks[5][iter4][2].strip() == 'Note_on_c':
+                    unit = insertChar(unit, intoChar(int(tracks[5][iter4][4])), 4)
+                else:
+                    unit = removeChar(unit, intoChar(int(tracks[5][iter4][4])), 4)
+                iter4 += 1
+
+        f.write(str(clock))
+        f.write(unit)
+        f.write(' ')
+        clock += 5
 
 print('Done!')
 
