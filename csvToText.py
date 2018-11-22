@@ -56,80 +56,80 @@ tracks = []
 #iterate through csv files
 for file in glob.glob("Data/*.csv"):
     with open(file, 'r') as csvfile:
+        tracks.append([])
         reader = csv.reader(csvfile)
         for row in reader:
             if row[2].strip() == 'Note_on_c' or row[2].strip() == 'Note_off_c':
-                if int(row[0]) + 1 > len(tracks):
-                    tracks.append([row])
+                if int(row[0]) - 1 > len(tracks[len(tracks) - 1]):
+                    tracks[len(tracks) - 1].append([row])
                 else:
-                    tracks[int(row[0])].append(row)
-    break #reading only one file
+                    tracks[len(tracks) - 1][int(row[0]) - 2].append(row)
+    print(file)
 
 #debugging
 # with open('test.csv', 'w') as f:
 #     for row in tracks[3]:
 #         f.write("%s\n" % row)
 
-
-clock = 0
-#setup iterators for the 4 tracks
-iter1 = 0
-iter2 = 0
-iter3 = 0
-iter4 = 0
-
-unit = '%%%'
-
 with open('input.txt', 'w') as f:
-    while True:
-        if iter1 >= len(tracks[2]) and iter2 >= len(tracks[3]) and iter3 >= len(tracks[4]) and iter4 >= len(tracks[5]):
-            break
+    for track in tracks:
+        clock = 0
+        iter1 = 0
+        iter2 = 0
+        iter3 = 0
+        iter4 = 0
+        unit = '%%%'
+        # f.write('Begin')
+        # f.write(' ')
 
-        #track 1
-        if iter1 < len(tracks[2]) and clock >= int(tracks[2][iter1][1]):
-            time = int(tracks[2][iter1][1])
-            while iter1 < len(tracks[2]) and time == int(tracks[2][iter1][1]):
-                if tracks[2][iter1][2].strip() == 'Note_on_c':
-                    unit = insertChar(unit, intoChar(int(tracks[2][iter1][4])), 1)
-                else:
-                    unit = removeChar(unit, intoChar(int(tracks[2][iter1][4])), 1)
-                iter1 += 1
+        while True:
+            if iter1 >= len(track[0]) and iter2 >= len(track[1]) and iter3 >= len(track[2]) and iter4 >= len(track[3]):
+                break
 
-        #track 2
-        if iter2 < len(tracks[3]) and clock >= int(tracks[3][iter2][1]):
-            time = int(tracks[3][iter2][1])
-            while iter2 < len(tracks[3]) and time == int(tracks[3][iter2][1]):
-                if tracks[3][iter2][2].strip() == 'Note_on_c':
-                    unit = insertChar(unit, intoChar(int(tracks[3][iter2][4])), 2)
-                else:
-                    unit = removeChar(unit, intoChar(int(tracks[3][iter2][4])), 2)
-                iter2 += 1
+            #track 1
+            if iter1 < len(track[0]) and clock >= int(track[0][iter1][1]):
+                time = int(track[0][iter1][1])
+                while iter1 < len(track[0]) and time == int(track[0][iter1][1]):
+                    if track[0][iter1][2].strip() == 'Note_on_c':
+                        unit = insertChar(unit, intoChar(int(track[0][iter1][4])), 1)
+                    else:
+                        unit = removeChar(unit, intoChar(int(track[0][iter1][4])), 1)
+                    iter1 += 1
 
-        #track 3
-        if iter3 < len(tracks[4]) and clock >= int(tracks[4][iter3][1]):
-            time = int(tracks[4][iter3][1])
-            while iter3 < len(tracks[4]) and time == int(tracks[4][iter3][1]):
-                if tracks[4][iter3][2].strip() == 'Note_on_c':
-                    unit = insertChar(unit, intoChar(int(tracks[4][iter3][4])), 3)
-                else:
-                    unit = removeChar(unit, intoChar(int(tracks[4][iter3][4])), 3)
-                iter3 += 1
+            #track 2
+            if iter2 < len(track[1]) and clock >= int(track[1][iter2][1]):
+                time = int(track[1][iter2][1])
+                while iter2 < len(track[1]) and time == int(track[1][iter2][1]):
+                    if track[1][iter2][2].strip() == 'Note_on_c':
+                        unit = insertChar(unit, intoChar(int(track[1][iter2][4])), 2)
+                    else:
+                        unit = removeChar(unit, intoChar(int(track[1][iter2][4])), 2)
+                    iter2 += 1
 
-        #track 4
-        if iter4 < len(tracks[5]) and clock >= int(tracks[5][iter4][1]):
-            time = int(tracks[5][iter4][1])
-            while iter4 < len(tracks[5]) and time == int(tracks[5][iter4][1]):
-                if tracks[5][iter4][2].strip() == 'Note_on_c':
-                    unit = insertChar(unit, intoChar(int(tracks[5][iter4][4])), 4)
-                else:
-                    unit = removeChar(unit, intoChar(int(tracks[5][iter4][4])), 4)
-                iter4 += 1
+            #track 3
+            if iter3 < len(track[2]) and clock >= int(track[2][iter3][1]):
+                time = int(track[2][iter3][1])
+                while iter3 < len(track[2]) and time == int(track[2][iter3][1]):
+                    if track[2][iter3][2].strip() == 'Note_on_c':
+                        unit = insertChar(unit, intoChar(int(track[2][iter3][4])), 3)
+                    else:
+                        unit = removeChar(unit, intoChar(int(track[2][iter3][4])), 3)
+                    iter3 += 1
 
-        #f.write(str(clock))
-        f.write(unit)
-        f.write(' ')
-        clock += 5
+            #track 4
+            if iter4 < len(track[3]) and clock >= int(track[3][iter4][1]):
+                time = int(track[3][iter4][1])
+                while iter4 < len(track[3]) and time == int(track[3][iter4][1]):
+                    if track[3][iter4][2].strip() == 'Note_on_c':
+                        unit = insertChar(unit, intoChar(int(track[3][iter4][4])), 4)
+                    else:
+                        unit = removeChar(unit, intoChar(int(track[3][iter4][4])), 4)
+                    iter4 += 1
 
+            #f.write(str(clock))
+            f.write(unit)
+            f.write(' ')
+            clock += 5
 print('Done!')
 
 #empty %
