@@ -65,13 +65,14 @@ for file in glob.glob("Data/*.csv"):
                 else:
                     tracks[len(tracks) - 1][int(row[0]) - 2].append(row)
     print(file)
+    break
 
 #debugging
 # with open('test.csv', 'w') as f:
 #     for row in tracks[3]:
 #         f.write("%s\n" % row)
 
-with open('input.txt', 'w') as f:
+with open('test.txt', 'w') as f:
     for track in tracks:
         clock = 0
         iter1 = 0

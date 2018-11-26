@@ -60,6 +60,8 @@ with open('input.txt', 'r') as f:
             if temp == '':
                 temp = word
             else:
+                if word.count('%') != 3:
+                    continue
                 findDiff(temp, word, clock)
 
             temp = word
